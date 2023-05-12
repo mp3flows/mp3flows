@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}All Music{% endblock %}</title>
+    {% block css_link %}
+    <link rel="stylesheet" href="{% static 'style/music.css' %}">
+    {% endblock %}
+</head>
+<body>
+    <div class="heading">
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="{% url 'home' %}">Music</a></li>
+        <li><a href="{%url 'free_beat' %}">Freebeat</a></li>
+        </ul>
+    </div>
+    {% block search %}
+    <div class="search">
+        <div class="logo-image">
+            <img src="{% static 'images/logo.png' %}" alt="">
+           </div>
+           <form action="{% url 'home' %}" method="GET">
+            <input type="text" name="q"  placeholder="Search Music..." >
+
+           </form>
+    </div>
+    {% endblock %}
+   
+    {% block content %}
+
+    <div class="content">
+        <h2><a href="{% url 'home' %}">New Songs</a> </h2>
+        {% if musics  %}
+
+        {% for mp3 in musics %}
+        <div class="main">
+
+            <!-- FIRST LIST -->
+            <div class="info">
+                
+                <div class="list-image">
+                 <img src="{{mp3.musicimg.url}}" alt="">
+                </div>
+                <div class="list-content">
+                    <h1> {{ mp3.artistname }} - {{ mp3.musicname}}</h1>
+                    <audio controls class="homeaudio">
+                        <source src="{{mp3.file.url}}" type="audio/wav">
+                    </audio>
+                    <div class="down">
+                        <a href="{% url 'download' mp3.id %}">Download</a>
+                    </div>
+                
+                   
+                </div>
+            </div>
+        </div>
+       
+
+        {% endfor %}
+        {% else %}
+        <h3>
+            No search march your request
+        </h3>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block ads %}
+
+{% if true_ads %}
+
+<section>
+    <div class="advert">
+        <img src="{{ads.adsimg.url}}" alt="">
+
+       <marquee behavior="alternate" direction=""><h1>Place Advert</h1></marquee> 
+    </div>
+</section>
+{% else %}
+<section>
+    <div class="advert">
+       <h1>
+        there is no ads to show
+       </h1>
+
+       <marquee behavior="alternate" direction=""><h1>Place Advert</h1></marquee> 
+    </div>
+</section>
+{% endif %}
+
+
+{% endblock %}
+{% block seemore %}
+{% endblock %}
+
+<a href="https://wa.me/+22954704814" class="btn-whatsssapp-pulse"> </a>
+<a href="https://wa.me/+22954704814">
+<div class="whatsapp">
+            <img src="{% static 'images/wha.png'%}" onmouseover="move()" alt="" class="banner" >
+    </div>
+</a>
+
+{% block footer %}
+{% endblock %}
+
+
+</body>
+</html>

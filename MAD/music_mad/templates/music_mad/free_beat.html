@@ -1,0 +1,101 @@
+{% extends 'music_mad/music.html' %}
+{% load static %}
+
+{% block title %}Free Beat{% endblock %}
+{% block css_link %}
+<link rel="stylesheet" href="{% static 'style/base.css' %}">
+<link rel="stylesheet" href="{% static 'style/music.css' %}">
+{% endblock %}
+<!-- search block below -->
+{% block search %}
+<div class="search">
+    <div class="logo-image">
+        <img src="{% static 'images/logo.png' %}" alt="">
+       </div>
+       <form action="{% url 'free_beat' %}" method="GET">
+        <input type="text" name="q"  placeholder="Search Free Beat..." >
+
+       </form>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <h2><a href="{% url 'home' %}">New Songs</a> </h2>
+</div>
+{% if musicsfilt  %}
+
+        {% for mp3 in musicsfilt %}
+        <div class="main">
+
+            <!-- FIRST LIST -->
+            <div class="info">
+                
+                <div class="list-image">
+                 <img src="{{mp3.beatimg.url}}" alt="">
+                </div>
+                <div class="list-content">
+                    <h1> {{ mp3.beatname }} </h1>
+                    <audio controls class="homeaudio">
+                        <source src="{{mp3.beatfile.url}}" type="audio/wav">
+                    </audio>
+                    <div class="down">
+                        <a href="{% url 'free_beat_download' mp3.id %}">Download</a>
+                    </div>
+                
+                   
+                </div>
+            </div>
+        </div>
+       
+
+        {% endfor %}
+        {% else %}
+        <h3>
+            No search march your request
+        </h3>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+{% block ads %}
+
+{% if true_ads %}
+
+<section>
+    <div class="advert">
+        <img src="{{ads.adsimg.url}}" alt="">
+
+       <marquee behavior="alternate" direction=""><h1>Place Advert</h1></marquee> 
+    </div>
+</section>
+{% else %}
+<section>
+    <div class="advert">
+       <h1>
+        there is no ads to show
+       </h1>
+
+       <marquee behavior="alternate" direction=""><h1>Place Advert</h1></marquee> 
+    </div>
+</section>
+{% endif %}   
+{% endblock %}
+
+{% block seemore %}
+{% endblock %}
+
+{% block whatsapp %}
+
+<a href="https://wa.me/+22954704814" class="btn-whatsssap"> </a>
+<a href="https://wa.me/+22954704814">
+<div class="whatsap">
+            <img src="{% static 'images/wha.png'%}" alt=""  >
+    </div>
+</a>
+
+{% endblock %}
+
+

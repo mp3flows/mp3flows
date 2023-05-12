@@ -1,0 +1,82 @@
+{% extends 'music_mad/music.html' %}
+{% load static %}
+
+{% block title %}{{  musics.artistname }}{% endblock %}
+{% block css_link %}
+<link rel="stylesheet" href="{% static 'style/base.css' %}">
+<link rel="stylesheet" href="{% static 'style/music.css' %}">
+{% endblock %}
+
+<!-- search block below -->
+{% block search %}
+<div class="search">
+    <div class="logo-image">
+        <img src="{% static 'images/logo.png' %}" alt="">
+       </div>
+       <form action="{% url 'free_beat' %}" method="GET">
+        <input type="text" name="q"  placeholder="Search Free beats..." >
+
+       </form>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- music from the click download show  -->
+{% if musics %}
+<div id="artistname">
+    {{musics.beatname}}-
+</div>
+
+<div class="list-img">
+    <img src="{{musics.beatimg.url}}" alt="" class="list-img">
+</div>
+
+
+<audio controls class="audiomack">
+    <source src="{{musics.beatfile.url}}" type="audio/wav">
+</audio>
+<div class="download">
+    <a href="{{musics.beatfile.url}}" download >Download</a>
+</div>
+{% endif %}
+{% endblock %}
+<!-- end here  -->
+
+<!-- ads block -->
+{% block ads %}
+{% if true_ads %}
+
+<section>
+    <div class="advert">
+        <img src="{{ads.adsimg.url}}" alt="">
+
+       <marquee behavior="alternate" direction=""><h1>Place Advert</h1></marquee> 
+    </div>
+</section>
+{% else %}
+<section>
+    <div class="advert">
+       <h1>
+        there is no ads to show
+       </h1>
+
+       <marquee behavior="alternate" direction=""><h1>Place Advert</h1></marquee> 
+    </div>
+</section>
+{% endif %}   
+{% endblock %}
+
+{% block whatsapp %}
+
+<a href="https://wa.me/+22954704814" class="btn-whatsssapp-pulse"> </a>
+<a href="https://wa.me/+22954704814">
+<div class="whatsapp">
+            <img src="{% static 'images/wha.png'%}" onmouseover="move()" alt="" class="banner" >
+    </div>
+</a>
+
+{% endblock %}
+
+{% block seemore %}
+{% endblock %}
